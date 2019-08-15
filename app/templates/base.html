@@ -11,12 +11,25 @@
 <body>
   <div id="mainSidePanel" class="sidepanel">
     <nav id="sidePanelNav">
-        <li><a href="#">home</a></li>
+        <li><a href="{{ url_for('home') }}">home</a></li>
         <li><a href="https://twitter.com/OnBeingAPorter">twitter</a></li>
         <li><a href="https://soundcloud.com/porter11211">soundcloud</a></li>
         <li><a href="#" class="toggleFullscreen">fullscreen</a></li>
     </nav>
   </div>
+  <div id="flashMessage">
+      {% with messages = get_flashed_messages() %}
+      {%  if messages %}
+          <ul>
+          {% for message in messages %}
+              <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+      {% endif %}
+      {% endwith %}
+  </div>
+  <div class="readingBlock">
   {% block content %}{% endblock %}
+  </div>
 </body>
 </html>
