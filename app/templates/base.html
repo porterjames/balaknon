@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>{{ title }} - porter's site</title>
+    {% else %}
+    <title>porter's site</title>
+    {% endif %}
+</head>
+<body>
+  <div id="mainSidePanel" class="sidepanel">
+    <nav id="sidePanelNav">
+        <li><a href="#">home</a></li>
+        <li><a href="https://twitter.com/OnBeingAPorter">twitter</a></li>
+        <li><a href="https://soundcloud.com/porter11211">soundcloud</a></li>
+        <li><a href="#" class="toggleFullscreen">fullscreen</a></li>
+    </nav>
+  </div>
+  {% block content %}{% endblock %}
+</body>
+</html>
