@@ -1,0 +1,167 @@
+
+@font-face {
+    font-family: "iA Writer Duospace";
+    src: url("fonts/iAWriterDuospace-Regular.otf");
+}
+@font-face {
+    font-family: "iA Writer Duospace";
+    src: url("fonts/iawriterduospace-bold-webfont.ttf");
+    font-weight: bold;
+}
+@font-face {
+    font-family: "iA Writer Duospace";
+    src: url("fonts/iAWriterDuospace-RegularItalic.otf");
+    font-style: italic;
+}
+@font-face {
+    font-family: "iA Writer Duospace";
+    src: url("fonts/iAWriterDuospace-BoldItalic.otf");
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: "iA Writer Duospace";
+    src: url("fonts/iAWriterDuospace-RegularItalic.otf");
+    font-style: oblique;
+}
+@font-face {
+    font-family: "iA Writer Duospace";
+    src: url("fonts/iAWriterDuospace-BoldItalic.otf");
+    font-weight: bold;
+    font-style: oblique;
+}
+
+body {
+    font-family: 'iA Writer Duospace', 'Courier New', Courier, monospace;
+    background-color: rgb(250, 250, 250);
+    height: 95%;
+}
+
+html {
+    height: 100%;
+}
+
+a {
+    color: #222222;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #c41414
+}
+
+.sidepanel {
+    position: fixed;
+    height: 70%;
+    width: 20px;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    margin-top: 60px;
+    padding-top: 60px;
+    padding-left: 15px;
+    padding-right: 0px;
+    border-right: 1px solid #222222;
+    transition: width 1s;
+}
+
+#sidePanelNav {
+    visibility: hidden;
+    opacity: 0;
+    transition: 2s;
+}
+
+#sidePanelNav li {
+    list-style: none;
+    margin-top: 30px;
+}
+
+.sidepanel:hover {
+    width: 120px;
+}
+
+.sidepanel:hover #sidePanelNav {
+    visibility: visible;
+    opacity: 1;
+}
+
+#readingCanvas {
+    left: 150px;
+    top: 60px;
+    height: 80%;
+    width: 800px;
+    /* overflow: auto; */
+    overflow: hidden;
+    position: relative;
+}
+
+::selection {
+    background: #222222;
+    color: rgb(250, 250, 250);
+}
+
+::-moz-selection {
+    background: #222222;
+    color: rgb(250, 250, 250);
+}
+
+body:-webkit-full-screen {
+    background-color: rgb(250, 250, 250);
+    width: 100%;
+    height: 100%;
+  }
+
+body:-moz-full-screen {
+    background-color: rgb(250, 250, 250);
+    width: 100%;
+    height: 100%;
+  }
+
+body:-ms-fullscreen {
+    background-color: rgb(250, 250, 250);
+    width: 100%;
+    height: 100%;
+  }
+
+body:fullscreen {
+    background-color: rgb(250, 250, 250);
+    width: 100%;
+    height: 100%;
+  }
+
+#rightPanel {
+    position: fixed;
+    right: 0;
+    top: 60px;
+    height: 70%;
+    width: 200px;
+    padding-right: 15px;
+    padding-left: 0px;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 150px;
+    height: 60px;
+    width: 800px;
+}
+
+.problem {
+    color: #c41414;
+}
+
+.goAway {
+    opacity: 0;
+    animation: take-me-away 5s;
+}
+
+@keyframes take-me-away {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
