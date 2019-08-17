@@ -50,6 +50,62 @@ a:hover {
     color: #c41414
 }
 
+input {
+    border: none;
+    border-bottom: 2px solid #222222;
+    background-color: rgb(250, 250, 250);
+    color: #222222;
+    outline: none;
+    font-family : inherit;
+    font-size   : 100%;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #222222;
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
+    background-color: #555555;
+}
+
+input[type=checkbox] {
+    visibility: hidden;
+}
+
+input[type=checkbox] + label:hover {
+    background: #555555;
+}
+
+input[type=checkbox]:checked + label:after {
+    opacity: 1;
+}
+
+input[type=checkbox] + label {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background: #222222;
+    position: absolute;
+    left: 0;
+}
+
+input[type=checkbox] + label:after {
+    content: '';
+    width: 9px;
+    height: 5px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border: 3px solid #fcfff4;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    opacity: 0;
+    transform: rotate(-45deg);
+}
+
 .sidepanel {
     position: fixed;
     height: 70%;
