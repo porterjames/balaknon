@@ -151,6 +151,10 @@ input[type=checkbox] + label:after {
     position: relative;
 }
 
+.story {
+    font-size: 1.25em;
+}
+
 ::selection {
     background: #222222;
     color: rgb(250, 250, 250);
@@ -220,4 +224,9 @@ body:fullscreen {
     100% {
         opacity: 0;
     }
+}
+
+.arrows {
+    text-align: center;
+    font-size: 300%;
 }

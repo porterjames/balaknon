@@ -9,6 +9,12 @@
     {% endif %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}" />
+    <script src="{{ url_for('static', filename='lib/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/jquery.fullscreen.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/p5.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/p5.sound.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='base.js') }}"></script>
 </head>
 <body>
   <div id="mainSidePanel" class="sidepanel">
@@ -40,6 +46,9 @@
               {% endif %}
           {% endwith %}
       </div>
+  </div>
+  <div id="rightPanel">
+      {%  block rightPanelContent %}{% endblock %}
   </div>
 </body>
 </html>

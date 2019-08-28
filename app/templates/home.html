@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <span>i'll put something here later</span>
+    <script>
+    var postId = {{ post.id }}
+    </script>
+    <pre class="story"><span id="post{{ post.id }}" class="poem">{{ post.body }}</span></pre>
+{% endblock %}
+
+{%  block rightPanelContent %}
+    <div id="postInfo{{ post.id }}" class="postInfo">
+    <h2 class="postTitle">{{ post.title }}</h2>
+    <h3 class="postAuthor">{{ author.display_name }}</h3>
+    <h3 class="postDateWritten">{{ post.date_written }}</h3>
+    <span class="createdBy">posted by {{ poster.username }} at {{ post.timestamp }}</span>
+    </div>
+    <pre class="arrows"><a id="prevArrow" href="javascript:prevPost()">&larr;</a>     <a id="nextArrow" href="javascript:nextPost()">&rarr;</a></pre>
 {% endblock %}

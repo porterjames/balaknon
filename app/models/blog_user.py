@@ -8,7 +8,7 @@ class BlogUser(UserMixin, db.Model):
     username = db.Column(db.String(32), index=True, unique=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
-    posts = db.relationship('Post', backref='author', lazy='dynamic')
+    posts = db.relationship('Post', backref='poster', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -20,6 +20,12 @@ class BlogUser(UserMixin, db.Model):
     def check_password(self, password):
         """check given password against stored hash"""
         return check_password_hash(self.password_hash, password)
+
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username
+        }
 
 
 @login.user_loader
