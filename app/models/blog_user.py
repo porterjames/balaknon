@@ -11,7 +11,7 @@ class BlogUser(UserMixin, db.Model):
     posts = db.relationship('Post', backref='poster', lazy='dynamic')
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '<BlogUser {}>'.format(self.username)
 
     def set_password(self, password):
         """save hashed password"""

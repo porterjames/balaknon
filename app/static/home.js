@@ -4,7 +4,7 @@ function updatePostData(newId, newBody, newTitle, newAuthor, newDateWritten, new
         setTimeout(function() {
             $("#readingCanvas").scrollTop(0);
     }, 100);
-        $("#post").text(newBody);
+        $("#post").html(newBody);
         $(".postTitle").text(newTitle);
         $(".postAuthor").text(newAuthor);
         $(".postDateWritten").text(newDateWritten);

@@ -148,6 +148,7 @@ input[type=checkbox] + label:after {
     width: 800px;
     overflow: hidden;
     position: relative;
+    line-height: 1.5em;
 }
 
 .story {
