@@ -146,7 +146,6 @@ input[type=checkbox] + label:after {
     top: 60px;
     height: 80%;
     width: 800px;
-    /* overflow: auto; */
     overflow: hidden;
     position: relative;
 }
@@ -226,7 +225,18 @@ body:fullscreen {
     }
 }
 
-.arrows {
-    text-align: center;
+#postNav {
+    position: fixed;
+    bottom: 60px;
+    width: 100%;
+}
+
+#nextArrow {
+    position: absolute;
+    left: 170px;
+    font-size: 300%;
+}
+
+#prevArrow {
     font-size: 300%;
 }

@@ -1,18 +1,25 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block scripts %}
     <script>
-    var postId = {{ post.id }}
+        var postId = {{ post.id }}
     </script>
-    <pre class="story"><span id="post{{ post.id }}" class="poem">{{ post.body }}</span></pre>
+    <script src="{{ url_for('static', filename='home.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <pre class="story"><span id="post" class="poem">{{ post.body }}</span></pre>
 {% endblock %}
 
 {%  block rightPanelContent %}
-    <div id="postInfo{{ post.id }}" class="postInfo">
+    <div id="postInfo" class="postInfo">
     <h2 class="postTitle">{{ post.title }}</h2>
     <h3 class="postAuthor">{{ author.display_name }}</h3>
     <h3 class="postDateWritten">{{ post.date_written }}</h3>
-    <span class="createdBy">posted by {{ poster.username }} at {{ post.timestamp }}</span>
+    <span class="createdBy">posted by {{ poster.username }} on {{ post.timestamp }}</span>
     </div>
-    <pre class="arrows"><a id="prevArrow" href="javascript:prevPost()">&larr;</a>     <a id="nextArrow" href="javascript:nextPost()">&rarr;</a></pre>
+    <div id="postNav">
+      <a id="prevArrow" href="javascript:prevPost()">&larr;</a>
+      <a id="nextArrow" href="javascript:nextPost()">&rarr;</a>
+    </div>
 {% endblock %}
