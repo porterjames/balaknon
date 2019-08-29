@@ -11,7 +11,13 @@ def home():
     return render_template('home.html', post=post, author=post.author, poster=post.poster)
 
 
-@app.route('/post/prev/<post_id>')
+@app.route('/post/<post_id>')
+def post(post_id):
+    post = Post.query.get(post_id)
+    return render_template('home.html', post=post, author=post.author, poster=post.poster)
+
+
+@app.route('/post/<post_id>/prev')
 def prev_post(post_id):
     post = Post.query.filter(Post.id < post_id).order_by(Post.id.desc()).first()
     return jsonify({'post': post.as_dict(),
@@ -19,7 +25,7 @@ def prev_post(post_id):
                     'poster': post.poster.as_dict()})
 
 
-@app.route('/post/next/<post_id>')
+@app.route('/post/<post_id>/next')
 def next_post(post_id):
     post = Post.query.filter(Post.id > post_id).order_by(Post.id.asc()).first()
     return jsonify({'post': post.as_dict(),

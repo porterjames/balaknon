@@ -10,12 +10,13 @@ function updatePostData(newId, newBody, newTitle, newAuthor, newDateWritten, new
         $(".postDateWritten").text(newDateWritten);
         $(".createdBy").text("posted by " + newUsername + " on " + newTimestamp);
         $("#post").add("#postInfo").fadeIn(1000);
+        window.history.pushState('post' + postId,'','/post/' + postId);
     });
     postId = newId;
 }
 
 function prevPost() {
-    $.get('/post/prev/' + postId).done(function(response) {
+    $.get('/post/' + postId + '/prev').done(function(response) {
         updatePostData(response.post.id, response.post.body, response.post.title, response.author.display_name,
             response.post.date_written, response.poster.username, response.post.timestamp);
     }).fail(function() {
@@ -23,7 +24,7 @@ function prevPost() {
 }
 
 function nextPost() {
-    $.get('/post/next/' + postId).done(function(response) {
+    $.get('/post/' + postId + '/next').done(function(response) {
         updatePostData(response.post.id, response.post.body, response.post.title, response.author.display_name,
             response.post.date_written, response.poster.username, response.post.timestamp);
     }).fail(function() {
