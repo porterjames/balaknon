@@ -1,5 +1,6 @@
 
-function updatePostData(newId, newBody, newTitle, newAuthor, newDateWritten, newUsername, newTimestamp) {
+function updatePostData(newId, newBody, newTitle, newAuthor, newDateWritten, newUsername, newTimestamp,
+                        next_id, prev_id) {
     $("#post").add("#postInfo").fadeOut(1000, function() {
         setTimeout(function() {
             $("#readingCanvas").scrollTop(0);
@@ -10,7 +11,17 @@ function updatePostData(newId, newBody, newTitle, newAuthor, newDateWritten, new
         $(".postDateWritten").text(newDateWritten);
         $(".createdBy").text("posted by " + newUsername + " on " + newTimestamp);
         $("#post").add("#postInfo").fadeIn(1000);
-        window.history.pushState('post' + postId,'','/post/' + postId);
+        if(next_id) {
+            $("#nextArrow").removeClass("disabled").attr("href", "javascript:nextPost()");
+        } else {
+            $("#nextArrow").addClass("disabled").removeAttr("href");
+        }
+        if(prev_id) {
+            $("#prevArrow").removeClass("disabled").attr("href", "javascript:prevPost()");
+        } else {
+            $("#prevArrow").addClass("disabled").removeAttr("href");
+        }
+        window.history.replaceState('post' + postId,'','/post/' + postId);
     });
     postId = newId;
 }
@@ -18,7 +29,8 @@ function updatePostData(newId, newBody, newTitle, newAuthor, newDateWritten, new
 function prevPost() {
     $.get('/post/' + postId + '/prev').done(function(response) {
         updatePostData(response.post.id, response.post.body, response.post.title, response.author.display_name,
-            response.post.date_written, response.poster.username, response.post.timestamp);
+            response.post.date_written, response.poster.username, response.post.timestamp,
+            response.next_id, response.prev_id);
     }).fail(function() {
     })
 }
@@ -26,7 +38,8 @@ function prevPost() {
 function nextPost() {
     $.get('/post/' + postId + '/next').done(function(response) {
         updatePostData(response.post.id, response.post.body, response.post.title, response.author.display_name,
-            response.post.date_written, response.poster.username, response.post.timestamp);
+            response.post.date_written, response.poster.username, response.post.timestamp,
+            response.next_id, response.prev_id);
     }).fail(function() {
     })
 }

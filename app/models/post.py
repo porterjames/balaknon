@@ -32,3 +32,11 @@ class Post(db.Model):
             'created_by': self.created_by,
             'author_id': self.author_id
         }
+
+    def next_id(self):
+        next_post = Post.query.filter(Post.id > self.id).order_by(Post.id.asc()).first()
+        return None if next_post is None else next_post.id
+
+    def prev_id(self):
+        prev_post = Post.query.filter(Post.id < self.id).order_by(Post.id.desc()).first()
+        return None if prev_post is None else prev_post.id

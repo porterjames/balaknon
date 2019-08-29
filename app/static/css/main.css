@@ -46,8 +46,14 @@ a {
     text-decoration: none;
 }
 
-a:hover {
+a:not(.disabled):hover {
     color: #c41414
+}
+
+a.disabled {
+    color: #888888;
+    pointer-events: none;
+    cursor: default;
 }
 
 input {

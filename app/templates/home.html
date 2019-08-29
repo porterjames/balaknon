@@ -19,7 +19,15 @@
     <span class="createdBy">posted by {{ poster.username }} on {{ post.timestamp }}</span>
     </div>
     <div id="postNav">
-      <a id="prevArrow" href="javascript:prevPost()">&larr;</a>
-      <a id="nextArrow" href="javascript:nextPost()">&rarr;</a>
+        {% if prev_id %}
+            <a id="prevArrow" href="javascript:prevPost()">&larr;</a>
+        {% else %}
+            <a id="prevArrow" class="disabled">&larr;</a>
+        {% endif %}
+        {% if next_id %}
+            <a id="nextArrow" href="javascript:nextPost()">&rarr;</a>
+        {% else %}
+            <a id="nextArrow" class="disabled">&rarr;</a>
+        {% endif %}
     </div>
 {% endblock %}
