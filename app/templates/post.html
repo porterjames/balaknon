@@ -8,14 +8,13 @@
 {% endblock %}
 
 {% block topofpage %}
-    <form action="" method="post" novalidate>
+    <form id="postForm" action="" method="post" novalidate>
     {{ form.hidden_tag() }}
+    {{ form.body() }}
 {% endblock %}
 
 {% block content %}
-    <p>
-        {{ form.body(cols="80", rows="20") }}
-    </p>
+    <pre class="story"><span id="post" class="poem"><div id="postEditor" class="editor" contenteditable>{{ post.body|safe }}</div></span></pre>
 {% endblock %}
 
 {%  block rightPanelContent %}
@@ -36,7 +35,7 @@
     </p>
     <span class="createdBy">posted by {{ poster.username }} on {{ post.timestamp }}</span>
     <p>
-        {{ form.submit() }}
+        <input id="submit" name="submit" type="submit" value="save" onclick="submitForm()">
     </p>
 {% endblock %}
 

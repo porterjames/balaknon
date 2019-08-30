@@ -45,8 +45,8 @@ def next_post(post_id):
 def edit_post(post_id):
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
+    post = Post.query.get(post_id)
     if request.method == 'GET':
-        post = Post.query.get(post_id)
         form = PostForm(formdata=MultiDict({
             'title': post.title,
             'date_written': post.date_written,
