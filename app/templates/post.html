@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+    <script>
+        var postId = {{ post.id }}
+    </script>
+    <script src="{{ url_for('static', filename='post.js') }}"></script>
+{% endblock %}
+
+{% block topofpage %}
+    <form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+{% endblock %}
+
+{% block content %}
+    <p>
+        {{ form.body(cols="80", rows="20") }}
+    </p>
+{% endblock %}
+
+{%  block rightPanelContent %}
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title(maxlength=256) }}
+        {%  for error in form.title.errors %}
+            <span class=".problem">{{ error }}</span>
+        {% endfor %}
+    </p>
+    <h3 class="postAuthor">{{ author.display_name }}</h3>
+    <p>
+        {{ form.date_written.label }}<br>
+        {{ form.date_written(maxlength=256) }}
+        {% for error in form.date_written.errors %}
+            <span class=".problem">{{ error }}</span>
+        {% endfor %}
+    </p>
+    <span class="createdBy">posted by {{ poster.username }} on {{ post.timestamp }}</span>
+    <p>
+        {{ form.submit() }}
+    </p>
+{% endblock %}
+
+{% block bottomofpage %}
+    </form>
+{% endblock %}
