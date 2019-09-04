@@ -33,7 +33,12 @@
             <span class=".problem">{{ error }}</span>
         {% endfor %}
     </p>
-    <span class="createdBy">posted by {{ poster.username }} on {{ post.timestamp }}</span>
+    <p>
+        {% for error in form.body.errors %}
+            <span class=".problem">Invalid post content: {{ error }}</span>
+        {% endfor %}
+    </p>
+    <span class="createdBy">posted by {{ poster.username }} on {{ post.timestamp|date }}</span>
     <p>
         <input id="submit" name="submit" type="submit" value="save" onclick="submitForm()">
     </p>

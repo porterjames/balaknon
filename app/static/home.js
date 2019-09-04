@@ -9,7 +9,9 @@ function updatePostData(newId, newBody, newTitle, newAuthor, newDateWritten, new
         $(".postTitle").text(newTitle);
         $(".postAuthor").text(newAuthor);
         $(".postDateWritten").text(newDateWritten);
-        $(".createdBy").text("posted by " + newUsername + " on " + newTimestamp);
+        let str_date = new Date(newTimestamp).toLocaleDateString("fr-CA");
+        $(".createdBy").text("posted by " + newUsername + " on " + str_date);
+        $("#editPostLink").attr("href", '/post/' + postId + '/edit')
         $("#post").add("#postInfo").fadeIn(1000);
         if(next_id) {
             $("#nextArrow").removeClass("disabled").attr("href", "javascript:nextPost()");
