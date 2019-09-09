@@ -14,7 +14,9 @@
 {%  block rightPanelContent %}
     <div id="postInfo" class="postInfo">
     <h2 class="postTitle" style="display: inline;">{{ post.title }}</h2>
-    <a id="editPostLink" href="{{ url_for('edit_post', post_id=post.id) }}">(edit)</a>
+    {% if current_user.is_authenticated %}
+        <a id="editPostLink" href="{{ url_for('edit_post', post_id=post.id) }}">(edit)</a>
+    {% endif %}
     <h3 class="postAuthor">{{ author.display_name }}</h3>
     <h3 class="postDateWritten">{{ post.date_written }}</h3>
     <span class="createdBy">posted by {{ poster.username }} on {{ post.timestamp|date }}</span>

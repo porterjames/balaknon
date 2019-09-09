@@ -25,7 +25,13 @@
             <span class=".problem">{{ error }}</span>
         {% endfor %}
     </p>
-    <h3 class="postAuthor">{{ author.display_name }}</h3>
+    <p>
+        {{ form.author_display_name.label }}<br>
+        {{ form.author_display_name(maxlength=256) }}
+        {% for error in form.author_display_name.errors %}
+            <span class=".problem">{{ error }}</span>
+        {% endfor %}
+    </p>
     <p>
         {{ form.date_written.label }}<br>
         {{ form.date_written(maxlength=256) }}
@@ -40,7 +46,8 @@
     </p>
     <span class="createdBy">posted by {{ poster.username }} on {{ post.timestamp|date }}</span>
     <p>
-        <input id="submit" name="submit" type="submit" value="save" onclick="submitForm()">
+        <input id="submit" name="submit" type="submit" value="save" style="width: 45%;" onclick="submitForm()">
+        <a href="{{ url_for('post', post_id=post.id) }}"><button id="cancel" style="width: 45%;">cancel</button></a>
     </p>
 {% endblock %}
 

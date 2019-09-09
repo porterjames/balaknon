@@ -8,8 +8,10 @@
     <title>porter's site</title>
     {% endif %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/perfect-scrollbar.css') }}" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}" />
     <script src="{{ url_for('static', filename='lib/jquery-3.4.1.min.js') }}"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{ url_for('static', filename='lib/jquery.fullscreen.min.js') }}"></script>
     <script src="{{ url_for('static', filename='lib/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ url_for('static', filename='base.js') }}"></script>
@@ -20,8 +22,7 @@
   <div id="mainSidePanel" class="sidepanel">
     <nav id="sidePanelNav">
         <li><a href="{{ url_for('home') }}">home</a></li>
-        <li><a href="https://twitter.com/OnBeingAPorter">twitter</a></li>
-        <li><a href="https://soundcloud.com/porter11211">soundcloud</a></li>
+        <li><a href="{{ url_for('author_list') }}">authors</a></li>
         <li><a href="#" class="toggleFullscreen">fullscreen</a></li>
         {% if current_user.is_anonymous %}
             <li><a href="{{ url_for('login') }}">login</a></li>

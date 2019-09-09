@@ -56,7 +56,7 @@ a.disabled {
     cursor: default;
 }
 
-input {
+input, button {
     border: none;
     border-bottom: 2px solid #222222;
     background-color: rgb(250, 250, 250);
@@ -66,13 +66,13 @@ input {
     font-size   : 100%;
 }
 
-input[type=button], input[type=submit], input[type=reset] {
+input[type=button], input[type=submit], input[type=reset], button {
     background-color: #222222;
     color: rgb(250, 250, 250);
     cursor: pointer;
 }
 
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover, button:hover {
     background-color: #555555;
 }
 
@@ -252,4 +252,24 @@ body:fullscreen {
     font-size: 300%;
     position: relative;
     left: 3%;
+}
+
+#postEditor {
+    display: inline-block;
+}
+
+.ui-autocomplete {
+    font-family: 'iA Writer Duospace', 'Courier New', Courier, monospace;
+    background-color: rgb(250, 250, 250);
+    color: #222222;
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover {
+    background: #222222;
+    color: rgb(250, 250, 250);
 }

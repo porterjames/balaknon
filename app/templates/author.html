@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+{#    <script src="{{ url_for('static', filename='post.js') }}"></script>#}
+{% endblock %}
+
+{% block topofpage %}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ author.display_name }}</h2>
+    First: {{ author.first_name or ''}}<br>
+    Last: {{ author.last_name or ''}}<br>
+    Middle: {{ author.middle_name or ''}}<br>
+    Pseudonym: {{ author.pseudonym or ''}}<br>
+    Birth Year: {{ author.birth_year or ''}}<br>
+    Death Year: {{ author.death_year or ''}}<br>
+    Nationality: {{ author.nationality or ''}}<br>
+{% endblock %}
+
+{%  block rightPanelContent %}
+{% endblock %}
+
+{% block bottomofpage %}
+{% endblock %}

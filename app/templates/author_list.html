@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+{#    <script src="{{ url_for('static', filename='post.js') }}"></script>#}
+{% endblock %}
+
+{% block topofpage %}
+{% endblock %}
+
+{% block content %}
+    <h2>author list</h2>
+    <ul>
+        {% for author in authors %}
+            <li><a href="{{ url_for('author', author_id=author.id) }}">{{ author.display_name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{%  block rightPanelContent %}
+{% endblock %}
+
+{% block bottomofpage %}
+{% endblock %}
