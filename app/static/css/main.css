@@ -150,7 +150,7 @@ input[type=checkbox] + label:after {
 #readingCanvas {
     left: 150px;
     top: 60px;
-    height: 80%;
+    height: 80vh;
     width: 50%;
     overflow: hidden;
     position: relative;
@@ -272,4 +272,5 @@ a.ui-button:active,
 .ui-button.ui-state-active:hover {
     background: #222222;
     color: rgb(250, 250, 250);
+    border-style: none;
 }
