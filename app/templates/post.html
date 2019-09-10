@@ -2,7 +2,11 @@
 
 {% block scripts %}
     <script>
-        var postId = {{ post.id }}
+        {% if post.id %}
+            var postId = {{ post.id }};
+        {% else %}
+            var postId = -1;
+        {% endif %}
     </script>
     <script src="{{ url_for('static', filename='post.js') }}"></script>
 {% endblock %}
@@ -14,7 +18,7 @@
 {% endblock %}
 
 {% block content %}
-    <pre class="story"><span id="post" class="poem"><div id="postEditor" class="editor" contenteditable>{{ post.body|safe }}</div></span></pre>
+    <pre class="story"><span id="post" class="poem"><div id="postEditor" class="editor" contenteditable>{{ (post.body if post.body)|safe }}</div></span></pre>
 {% endblock %}
 
 {%  block rightPanelContent %}
@@ -22,32 +26,43 @@
         {{ form.title.label }}<br>
         {{ form.title(maxlength=256) }}
         {%  for error in form.title.errors %}
-            <span class=".problem">{{ error }}</span>
+            <span class="problem">{{ error }}</span>
         {% endfor %}
     </p>
     <p>
         {{ form.author_display_name.label }}<br>
         {{ form.author_display_name(maxlength=256) }}
         {% for error in form.author_display_name.errors %}
-            <span class=".problem">{{ error }}</span>
+            <span class="problem">{{ error }}</span>
         {% endfor %}
     </p>
     <p>
         {{ form.date_written.label }}<br>
         {{ form.date_written(maxlength=256) }}
         {% for error in form.date_written.errors %}
-            <span class=".problem">{{ error }}</span>
+            <span class="problem">{{ error }}</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.language.label }}<br>
+        {{ form.language(maxlength=50) }}
+        {%  for error in form.language.errors %}
+            <span class="problem">{{ error }}</span>
         {% endfor %}
     </p>
     <p>
         {% for error in form.body.errors %}
-            <span class=".problem">Invalid post content: {{ error }}</span>
+            <span class="problem">Invalid post body: {{ error }}</span>
         {% endfor %}
     </p>
     <span class="createdBy">posted by {{ poster.username }} on {{ post.timestamp|date }}</span>
     <p>
         <input id="submit" name="submit" type="submit" value="save" style="width: 45%;" onclick="submitForm()">
-        <a href="{{ url_for('post', post_id=post.id) }}"><button id="cancel" style="width: 45%;">cancel</button></a>
+        {% if post.id %}
+           <a href="{{ url_for('post', post_id=post.id) }}"><button id="cancel" style="width: 45%;">cancel</button></a>
+        {% else %}
+            <a href="{{ url_for('home') }}"><button id="cancel" type="button" style="width: 45%;">cancel</button></a>
+        {% endif %}
     </p>
 {% endblock %}
 

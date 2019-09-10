@@ -30,7 +30,8 @@ class Post(db.Model):
             'body': self.body,
             'timestamp': self.timestamp,
             'created_by': self.created_by,
-            'author_id': self.author_id
+            'author_id': self.author_id,
+            'language': self.language
         }
 
     def next_id(self):

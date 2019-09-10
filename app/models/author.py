@@ -30,3 +30,7 @@ class Author(db.Model):
             'death_year': self.death_year,
             'nationality': self.nationality
         }
+
+    @staticmethod
+    def get_by_display_name(p_name):
+        return Author.query.filter(Author.display_name == p_name).first_or_404()

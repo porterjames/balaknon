@@ -1,6 +1,6 @@
 
 function updatePostData(newId, newBody, newTitle, newAuthor, newDateWritten, newUsername, newTimestamp,
-                        next_id, prev_id) {
+                        next_id, prev_id, newLanguage) {
     $("#post").add("#postInfo").fadeOut(1000, function() {
         setTimeout(function() {
             $("#readingCanvas").scrollTop(0);
@@ -8,7 +8,7 @@ function updatePostData(newId, newBody, newTitle, newAuthor, newDateWritten, new
         $("#post").html(newBody);
         $(".postTitle").text(newTitle);
         $(".postAuthor").text(newAuthor);
-        $(".postDateWritten").text(newDateWritten);
+        $(".postDateWritten").text(newDateWritten + " - " + newLanguage);
         let str_date = new Date(newTimestamp).toLocaleDateString("fr-CA");
         $(".createdBy").text("posted by " + newUsername + " on " + str_date);
         $("#editPostLink").attr("href", '/post/' + postId + '/edit')
@@ -32,7 +32,7 @@ function prevPost() {
     $.get('/post/' + postId + '/prev').done(function(response) {
         updatePostData(response.post.id, response.post.body, response.post.title, response.author.display_name,
             response.post.date_written, response.poster.username, response.post.timestamp,
-            response.next_id, response.prev_id);
+            response.next_id, response.prev_id, response.post.language);
     }).fail(function() {
     })
 }
@@ -41,7 +41,7 @@ function nextPost() {
     $.get('/post/' + postId + '/next').done(function(response) {
         updatePostData(response.post.id, response.post.body, response.post.title, response.author.display_name,
             response.post.date_written, response.poster.username, response.post.timestamp,
-            response.next_id, response.prev_id);
+            response.next_id, response.prev_id, response.post.language);
     }).fail(function() {
     })
 }
