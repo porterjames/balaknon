@@ -1,6 +1,7 @@
 from flask import render_template, jsonify
 from flask_login import login_required
 from app.models.author import Author
+from app.models.post import Post
 from app import app
 
 
@@ -13,7 +14,9 @@ def author_list():
 @app.route('/author/<int:author_id>')
 def author(author_id):
     the_author = Author.query.get(author_id)
-    return render_template('author.html', author=the_author)
+    languages = [l.as_dict() for l in the_author.languages]
+    works = [p.as_dict() for p in Post.query.filter(Post.author_id==the_author.id).order_by(Post.id.asc())]
+    return render_template('author.html', author=the_author, languages=languages, works=works)
 
 
 @app.route('/author/new', methods=['GET', 'POST'])

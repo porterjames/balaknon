@@ -25,8 +25,7 @@ class SiteUser(UserMixin, db.Model):
     def as_dict(self):
         return {
             'id': self.id,
-            'username': self.username,
-            'email': self.email
+            'username': self.username
         }
 
 

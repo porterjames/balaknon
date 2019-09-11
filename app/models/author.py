@@ -18,8 +18,8 @@ class Author(db.Model, base.ModelMixin):
     def __repr__(self):
         return '<Author name={}>'.format(self.display_name)
 
-    def as_dict(self):
-        return self.base_dict().update({
+    def _dict_vals(self):
+        return {
             'display_name': self.display_name,
             'first_name': self.first_name,
             'last_name': self.last_name,
@@ -27,7 +27,7 @@ class Author(db.Model, base.ModelMixin):
             'birth_year': self.birth_year,
             'death_year': self.death_year,
             'country': self.country.as_dict()
-        })
+        }
 
     @staticmethod
     def get_by_display_name(p_name):

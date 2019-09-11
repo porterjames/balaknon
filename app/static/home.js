@@ -8,7 +8,7 @@ function updatePostData(newId, newBody, newTitle, newAuthor, newDateWritten, new
         $("#post").html(newBody);
         $(".postTitle").text(newTitle);
         $(".postAuthor").text(newAuthor);
-        $(".postDateWritten").text(newDateWritten + " - " + newLanguage);
+        $(".postDateWritten").text(newDateWritten + " - " + newLanguage.name);
         let str_date = new Date(newTimestamp).toLocaleDateString("fr-CA");
         $(".createdBy").text("posted by " + newUsername + " on " + str_date);
         $("#editPostLink").attr("href", '/post/' + postId + '/edit')

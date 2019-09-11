@@ -18,15 +18,15 @@ class Post(db.Model, base.ModelMixin):
             return self.body
         return self.body[:chars] + '...'
 
-    def as_dict(self):
-        return self.base_dict().update({
+    def _dict_vals(self):
+        return {
             'title': self.title,
             'body': self.body,
             'author_id': self.author_id,
             'language': self.language.as_dict(),
             'country': self.country.as_dict(),
             'date_written': self.date_written
-        })
+        }
 
     def next_id(self):
         next_post = Post.query.filter(Post.id > self.id).order_by(Post.id.asc()).first()

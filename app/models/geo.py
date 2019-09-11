@@ -11,12 +11,12 @@ class Language(db.Model, base.ModelMixin):
     def __repr__(self):
         return '<Language {}>'.format(self.name)
 
-    def as_dict(self):
-        return self.base_dict().update({
+    def _dict_vals(self):
+        return {
             'name': self.name,
             'code': self.code,
             'native_name': self.native_name
-        })
+        }
 
 
 class Country(db.Model, base.ModelMixin):
@@ -28,8 +28,8 @@ class Country(db.Model, base.ModelMixin):
     def __repr__(self):
         return '<Country {}>'.format(self.name)
 
-    def as_dict(self):
-        return super().base_dict().update({
+    def _dict_vals(self):
+        return {
             'name': self.name,
             'code': self.code
-        })
+        }

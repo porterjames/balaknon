@@ -13,7 +13,7 @@ import pytz
 @app.route('/')
 @app.route('/home')
 def home():
-    the_post = Post.query.order_by(Post.timestamp.desc()).first()
+    the_post = Post.query.order_by(Post.id.desc()).first()
     return render_template('home.html', post=the_post, author=the_post.author, poster=the_post.poster,
                            next_id=None, prev_id=the_post.prev_id())
 

@@ -16,11 +16,16 @@ class ModelMixin(object):
     def modified_by(self):
         return db.Column(db.Integer, db.ForeignKey('site_user.id'), nullable=False)
 
-    def base_dict(self):
-        return {
+    def as_dict(self):
+        b = {
             'id': self.id,
             'timestamp': self.timestamp,
             'created_by': self.created_by,
             'modify_timestamp': self.modify_timestamp,
             'modified_by': self.modified_by
         }
+        b.update(self._dict_vals())
+        return b
+
+    def _dict_vals(self):
+        return {}

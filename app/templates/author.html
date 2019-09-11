@@ -8,16 +8,22 @@
 {% endblock %}
 
 {% block content %}
-    <h2>{{ author.display_name }}</h2>
-    First: {{ author.first_name or ''}}<br>
-    Last: {{ author.last_name or ''}}<br>
-    Middle: {{ author.middle_name or ''}}<br>
-    Birth Year: {{ author.birth_year or ''}}<br>
-    Death Year: {{ author.death_year or ''}}<br>
-    Country: {{ author.country.name or ''}}<br>
+    <ul>
+    {% for work in works %}
+        <li><a href="{{ url_for('post', post_id=work.id) }}">{{ work.title }}</a></li>
+    {% endfor %}
+    </ul>
 {% endblock %}
 
 {%  block rightPanelContent %}
+    <h2>{{ author.display_name }} ({{ author.birth_year or ''}} - {{ author.death_year or ''}})</h2>
+    <h3>{{ author.country.name or ''}}</h3>
+    <h3>language</h3>
+    <ul>
+    {% for lang in languages %}
+        <li>{{ lang.name }}</li>
+    {% endfor %}
+    </ul>
 {% endblock %}
 
 {% block bottomofpage %}
