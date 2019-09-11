@@ -1,18 +1,14 @@
 from app import db
-from datetime import datetime
-import pytz
+from . import base
 
 
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(256), nullable=True)
-    date_written = db.Column(db.String(256), nullable=True)
+class Post(db.Model, base.ModelMixin):
+    title = db.Column(db.String(256), nullable=False)
     body = db.Column(db.Text, nullable=False)
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.now(pytz.timezone('Asia/Manila')), nullable=False)
-    created_by = db.Column(db.Integer, db.ForeignKey('blog_user.id'), nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=False)
-    language = db.Column(db.String(40), nullable=False, default='English')
-    post_type = db.Column(db.String(40), nullable=False, default='poem')
+    language_id = db.Column(db.Integer, db.ForeignKey('language.id'), nullable=False)
+    country_id = db.Column(db.Integer, db.ForeignKey('country.id'), nullable=False)
+    date_written = db.Column(db.String(256), nullable=True)
 
     def __repr__(self):
         return '<Post id={} ({})>'.format(self.id, self.body_short(10))
@@ -23,16 +19,14 @@ class Post(db.Model):
         return self.body[:chars] + '...'
 
     def as_dict(self):
-        return {
-            'id': self.id,
+        return self.base_dict().update({
             'title': self.title,
-            'date_written': self.date_written,
             'body': self.body,
-            'timestamp': self.timestamp,
-            'created_by': self.created_by,
             'author_id': self.author_id,
-            'language': self.language
-        }
+            'language': self.language.as_dict(),
+            'country': self.country.as_dict(),
+            'date_written': self.date_written
+        })
 
     def next_id(self):
         next_post = Post.query.filter(Post.id > self.id).order_by(Post.id.asc()).first()

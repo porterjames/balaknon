@@ -51,6 +51,13 @@
         {% endfor %}
     </p>
     <p>
+        {{ form.country.label }}<br>
+        {{ form.country(maxlength=50) }}
+        {% for error in form.country.errors %}
+            <span class="problem">{{ error }}</span>
+        {% endfor %}
+    </p>
+    <p>
         {% for error in form.body.errors %}
             <span class="problem">Invalid post body: {{ error }}</span>
         {% endfor %}

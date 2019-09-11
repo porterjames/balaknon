@@ -18,7 +18,11 @@
         <a id="editPostLink" href="{{ url_for('edit_post', post_id=post.id) }}">(edit)</a>
     {% endif %}
     <h3 class="postAuthor">{{ author.display_name }}</h3>
-    <h3 class="postDateWritten">{{ post.date_written }} - {{ post.language }}</h3>
+    {% if post.date_written %}
+        <h3 class="postDateWritten">{{ post.date_written }} - {{ post.language.name }}</h3>
+    {% else %}
+        <h3 class="postDateWritten">{{ post.language.name }}</h3>
+    {% endif %}
     <span class="createdBy">posted by {{ poster.username }} on {{ post.timestamp|date }}</span>
     </div>
     <div id="postNav">

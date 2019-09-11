@@ -12,10 +12,9 @@
     First: {{ author.first_name or ''}}<br>
     Last: {{ author.last_name or ''}}<br>
     Middle: {{ author.middle_name or ''}}<br>
-    Pseudonym: {{ author.pseudonym or ''}}<br>
     Birth Year: {{ author.birth_year or ''}}<br>
     Death Year: {{ author.death_year or ''}}<br>
-    Nationality: {{ author.nationality or ''}}<br>
+    Country: {{ author.country.name or ''}}<br>
 {% endblock %}
 
 {%  block rightPanelContent %}

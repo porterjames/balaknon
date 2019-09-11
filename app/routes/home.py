@@ -2,6 +2,7 @@ from flask import render_template, jsonify, redirect, url_for, request, flash
 from app import app, db
 from app.models.post import Post
 from app.models.author import Author
+from app.models.geo import Language, Country
 from app.forms.post import PostForm
 from flask_login import login_required, current_user
 from werkzeug.datastructures import MultiDict
@@ -54,7 +55,8 @@ def edit_post(post_id):
             'date_written': the_post.date_written,
             'body': the_post.body,
             'author_display_name': the_post.author.display_name,
-            'language': the_post.language
+            'language': the_post.language.name,
+            'country': the_post.country.name
         }))
     else:
         form = PostForm()
@@ -64,7 +66,10 @@ def edit_post(post_id):
         the_post.title = form.title.data
         the_post.date_written = form.date_written.data
         the_post.body = form.body.data
-        the_post.language = form.language.data
+        the_post.language_id = Language.query.filter(Language.name == form.language.data).first().id
+        the_post.country_id = Country.query.filter(Country.name == form.country.data).first().id
+        the_post.modified_by = current_user.id
+        the_post.modify_timestamp = datetime.utcnow()
         db.session.commit()
         # flash('changes saved to "{}"'.format(form.title.data))
         return redirect(url_for('post', post_id=post_id))
@@ -82,9 +87,10 @@ def new_post():
         the_post.title = form.title.data
         the_post.date_written = form.date_written.data
         the_post.body = form.body.data
-        the_post.language = form.language.data
+        the_post.language_id = Language.query.filter(Language.name == form.language.data).first().id
+        the_post.country_id = Country.query.filter(Country.name == form.country.data).first().id
         the_post.created_by = current_user.id
-        the_post.timestamp = datetime.now(pytz.timezone('Asia/Manila'))
+        the_post.modified_by = current_user.id
         db.session.add(the_post)
         db.session.commit()
         return redirect(url_for('post', post_id=the_post.id))

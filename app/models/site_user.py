@@ -1,14 +1,15 @@
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from . import post
 
 
-class BlogUser(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+class SiteUser(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(32), index=True, unique=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
-    posts = db.relationship('Post', backref='poster', lazy='dynamic')
+    posts = db.relationship('Post', backref='poster', lazy='dynamic', foreign_keys=post.Post.created_by)
 
     def __repr__(self):
         return '<BlogUser {}>'.format(self.username)
@@ -24,10 +25,11 @@ class BlogUser(UserMixin, db.Model):
     def as_dict(self):
         return {
             'id': self.id,
-            'username': self.username
+            'username': self.username,
+            'email': self.email
         }
 
 
 @login.user_loader
 def load_user(p_id):
-    return BlogUser.query.get(int(p_id))
+    return SiteUser.query.get(int(p_id))
