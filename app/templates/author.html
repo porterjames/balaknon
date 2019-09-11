@@ -8,11 +8,11 @@
 {% endblock %}
 
 {% block content %}
-    <ul>
+    <div id="postLinks">
     {% for work in works %}
-        <li><a href="{{ url_for('post', post_id=work.id) }}">{{ work.title }}</a></li>
+        <div id="post{{ work.id }}" class="postLink"><a href="{{ url_for('post', post_id=work.id) }}">{{ work.title_short }}</a></div>
     {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
 
 {%  block rightPanelContent %}

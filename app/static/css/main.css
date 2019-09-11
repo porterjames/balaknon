@@ -274,3 +274,15 @@ a.ui-button:active,
     color: rgb(250, 250, 250);
     border-style: none;
 }
+
+#postLinks {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.postLink {
+    width: 130px;
+    height: 130px;
+    margin: 30px;
+}

@@ -18,9 +18,15 @@ class Post(db.Model, base.ModelMixin):
             return self.body
         return self.body[:chars] + '...'
 
+    def title_short(self, chars):
+        if len(self.title) < chars:
+            return self.title
+        return self.title[:chars] + '...'
+
     def _dict_vals(self):
         return {
             'title': self.title,
+            'title_short': self.title_short(60),
             'body': self.body,
             'author_id': self.author_id,
             'language': self.language.as_dict(),
