@@ -10,7 +10,7 @@
 {% block content %}
     <div id="postLinks">
     {% for work in works %}
-        <div id="post{{ work.id }}" class="postLink"><a href="{{ url_for('post', post_id=work.id) }}">{{ work.title_short }}</a></div>
+        <a href="{{ url_for('post', post_id=work.id) }}" class="postLink"><div id="post{{ work.id }}">{{ work.title_short }}</div></a>
     {% endfor %}
     </div>
 {% endblock %}
@@ -18,12 +18,7 @@
 {%  block rightPanelContent %}
     <h2>{{ author.display_name }} ({{ author.birth_year or ''}} - {{ author.death_year or ''}})</h2>
     <h3>{{ author.country.name or ''}}</h3>
-    <h3>language</h3>
-    <ul>
-    {% for lang in languages %}
-        <li>{{ lang.name }}</li>
-    {% endfor %}
-    </ul>
+    <img class="authorPhoto" src="{{ url_for('author_photo', author_id=author.id) }}">
 {% endblock %}
 
 {% block bottomofpage %}

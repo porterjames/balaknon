@@ -1,8 +1,9 @@
-from flask import render_template, jsonify
+from flask import render_template, jsonify, send_from_directory
 from flask_login import login_required
 from app.models.author import Author
 from app.models.post import Post
 from app import app
+from os import path
 
 
 @app.route('/author')
@@ -39,3 +40,7 @@ def autocomplete_author():
     author_names = [a.display_name for a in Author.query.all()]
     return jsonify(author_names=author_names)
 
+
+@app.route('/author/<int:author_id>/photo')
+def author_photo(author_id):
+    return send_from_directory(path.join(app.config['UPLOAD_FOLDER'], 'author'), 'emily.jpg')

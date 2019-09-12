@@ -286,3 +286,20 @@ a.ui-button:active,
     height: 130px;
     margin: 30px;
 }
+
+.postLink div {
+    transition: 2s;
+    height: 100%
+}
+
+.postLink div:hover {
+    background-color: #222222;
+    color: rgb(250, 250, 250);
+    transition: 2s;
+}
+
+.authorPhoto {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
