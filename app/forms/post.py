@@ -9,6 +9,6 @@ class PostForm(FlaskForm):
     body = HiddenField('body', validators=[DataRequired()])
     author_display_name = StringField('author')
     language = StringField('language')
-    country = StringField('country')
+    nasod = StringField('country')
     post_type = StringField('post type')
     submit = SubmitField('save')

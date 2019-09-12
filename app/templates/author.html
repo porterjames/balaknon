@@ -16,7 +16,10 @@
 {% endblock %}
 
 {%  block rightPanelContent %}
-    <h2>{{ author.display_name }} ({{ author.birth_year or ''}} - {{ author.death_year or ''}})</h2>
+    <h2 style="display: inline">{{ author.display_name }} ({{ author.birth_year or ''}} - {{ author.death_year or ''}})</h2>
+    {% if current_user.is_authenticated %}
+        <a id="editAuthorLink" href="{{ url_for('edit_author', author_id=author.id) }}">(edit)</a>
+    {% endif %}
     <h3>{{ author.country.name or ''}}</h3>
     <img class="authorPhoto" src="{{ url_for('author_photo', author_id=author.id) }}">
 {% endblock %}

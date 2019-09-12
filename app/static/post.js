@@ -8,6 +8,15 @@ $(function() {
             minlength: 1
         });
     });
+
+    $.ajax({
+        url: '/country/autocomplete'
+    }).done(function(data) {
+        $('#nasod').autocomplete({
+            source: data.country_names,
+            minlength: 1
+        });
+    });
 });
 
 function submitForm() {

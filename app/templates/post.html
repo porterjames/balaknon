@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block topofpage %}
-    <form id="postForm" action="" method="post" novalidate>
+    <form id="postForm" action="" method="post" autocomplete="off" novalidate>
     {{ form.hidden_tag() }}
     {{ form.body() }}
 {% endblock %}
@@ -51,9 +51,9 @@
         {% endfor %}
     </p>
     <p>
-        {{ form.country.label }}<br>
-        {{ form.country(maxlength=50) }}
-        {% for error in form.country.errors %}
+        {{ form.nasod.label }}<br>
+        {{ form.nasod(maxlength=50) }}
+        {% for error in form.nasod.errors %}
             <span class="problem">{{ error }}</span>
         {% endfor %}
     </p>
@@ -66,7 +66,7 @@
     <p>
         <input id="submit" name="submit" type="submit" value="save" style="width: 45%;" onclick="submitForm()">
         {% if post.id %}
-           <a href="{{ url_for('post', post_id=post.id) }}"><button id="cancel" style="width: 45%;">cancel</button></a>
+           <a href="{{ url_for('post', post_id=post.id) }}"><button id="cancel" type="button" style="width: 45%;">cancel</button></a>
         {% else %}
             <a href="{{ url_for('home') }}"><button id="cancel" type="button" style="width: 45%;">cancel</button></a>
         {% endif %}

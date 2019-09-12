@@ -12,6 +12,7 @@ class Author(db.Model, base.ModelMixin):
     birth_year = db.Column(db.Integer, nullable=True)
     death_year = db.Column(db.Integer, nullable=True)
     country_id = db.Column(db.Integer, db.ForeignKey('country.id'), nullable=False)
+    photo_path = db.Column(db.String(256), nullable=True)
     works = db.relationship('Post', backref='author', lazy='dynamic')
     languages = db.relationship('Language', secondary='author_language', backref='authors')
 
@@ -26,7 +27,8 @@ class Author(db.Model, base.ModelMixin):
             'middle_name': self.middle_name,
             'birth_year': self.birth_year,
             'death_year': self.death_year,
-            'country': self.country.as_dict()
+            'country': self.country.as_dict(),
+            'has_photo': self.photo_path is not None
         }
 
     @staticmethod

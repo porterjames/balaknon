@@ -56,7 +56,7 @@ def edit_post(post_id):
             'body': the_post.body,
             'author_display_name': the_post.author.display_name,
             'language': the_post.language.name,
-            'country': the_post.country.name
+            'nasod': the_post.country.name
         }))
     else:
         form = PostForm()
@@ -67,7 +67,7 @@ def edit_post(post_id):
         the_post.date_written = form.date_written.data
         the_post.body = form.body.data
         the_post.language_id = Language.query.filter(Language.name == form.language.data).first().id
-        the_post.country_id = Country.query.filter(Country.name == form.country.data).first().id
+        the_post.country_id = Country.query.filter(Country.name == form.nasod.data).first().id
         the_post.modified_by = current_user.id
         the_post.modify_timestamp = datetime.utcnow()
         db.session.commit()
@@ -88,7 +88,7 @@ def new_post():
         the_post.date_written = form.date_written.data
         the_post.body = form.body.data
         the_post.language_id = Language.query.filter(Language.name == form.language.data).first().id
-        the_post.country_id = Country.query.filter(Country.name == form.country.data).first().id
+        the_post.country_id = Country.query.filter(Country.name == form.nasod.data).first().id
         the_post.created_by = current_user.id
         the_post.modified_by = current_user.id
         db.session.add(the_post)

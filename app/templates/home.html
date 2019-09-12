@@ -17,7 +17,7 @@
     {% if current_user.is_authenticated %}
         <a id="editPostLink" href="{{ url_for('edit_post', post_id=post.id) }}">(edit)</a>
     {% endif %}
-    <h3 class="postAuthor">{{ author.display_name }}</h3>
+    <h3 class="postAuthor"><a href="{{ url_for('author', author_id=author.id) }}">{{ author.display_name }}</a></h3>
     {% if post.date_written %}
         <h3 class="postDateWritten">{{ post.date_written }} - {{ post.language.name }}</h3>
     {% else %}

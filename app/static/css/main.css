@@ -284,12 +284,13 @@ a.ui-button:active,
 .postLink {
     width: 130px;
     height: 130px;
-    margin: 30px;
+    margin: 25px;
 }
 
 .postLink div {
     transition: 2s;
-    height: 100%
+    height: 100%;
+    padding: 5px;
 }
 
 .postLink div:hover {
@@ -302,4 +303,36 @@ a.ui-button:active,
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.mainFormArea {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.rowOfFields {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.rowOfFields p {
+    margin-right: 15px;
+}
+
+.buttonFields button, .buttonFields input {
+    width: 100px;
+}
+
+label[for="photo"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+label[for="photo"]:hover {
+    cursor: pointer;
+    opacity: 0.3;
+    transition: 2s;
 }

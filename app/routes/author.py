@@ -1,9 +1,16 @@
-from flask import render_template, jsonify, send_from_directory
-from flask_login import login_required
-from app.models.author import Author
-from app.models.post import Post
-from app import app
+from flask import render_template, jsonify, send_from_directory, request, redirect, url_for
+from flask_login import login_required, current_user
+from werkzeug.datastructures import MultiDict
 from os import path
+from datetime import datetime
+
+from werkzeug.utils import secure_filename
+
+from app.models.author import Author
+from app.models.geo import Country, Language
+from app.models.post import Post
+from app.forms.author import AuthorForm
+from app import app, db
 
 
 @app.route('/author')
@@ -24,14 +31,40 @@ def author(author_id):
 @login_required
 def new_author():
     # to do
-    return render_template('author.html')
+    return render_template('author_edit.html')
 
 
-@app.route('/author/<int:author_id>/edit')
+@app.route('/author/<int:author_id>/edit', methods=['GET', 'POST'])
 @login_required
-def edit_author():
-    # to do
-    return render_template('author.html')
+def edit_author(author_id):
+    the_author = Author.query.get(author_id)
+    form = AuthorForm()
+    if request.method == 'GET':
+        form.display_name.data = the_author.display_name
+        form.first_name.data = the_author.first_name
+        form.last_name.data = the_author.last_name
+        form.middle_name.data = the_author.middle_name
+        form.nasod.data = the_author.country.name
+        form.birth_year.data = the_author.birth_year
+        form.death_year.data = the_author.death_year
+    if form.validate_on_submit():
+        the_author.display_name = form.display_name.data
+        the_author.first_name = form.first_name.data
+        the_author.last_name = form.last_name.data
+        the_author.middle_name = form.middle_name.data
+        the_author.birth_year = form.birth_year.data
+        the_author.death_year = form.death_year.data
+        the_country = Country.query.filter(Country.name == form.nasod.data).first_or_404()
+        the_author.country_id = the_country.id
+        the_author.modified_by = current_user.id
+        the_author.modify_timestamp = datetime.utcnow()
+        author_photo = form.photo.data
+        if author_photo is not None:
+            the_author.photo_path = secure_filename(author_photo.filename)
+            author_photo.save(path.join(app.config['UPLOAD_FOLDER'], 'author', the_author.photo_path))
+        db.session.commit()
+        return redirect(url_for('author', author_id=author_id))
+    return render_template('author_edit.html', form=form, author=the_author.as_dict())
 
 
 @app.route('/author/autocomplete')
@@ -43,4 +76,7 @@ def autocomplete_author():
 
 @app.route('/author/<int:author_id>/photo')
 def author_photo(author_id):
-    return send_from_directory(path.join(app.config['UPLOAD_FOLDER'], 'author'), 'emily.jpg')
+    the_author = Author.query.get(author_id)
+    if the_author.photo_path is None:
+        return None
+    return send_from_directory(path.join(app.config['UPLOAD_FOLDER'], 'author'), the_author.photo_path)
