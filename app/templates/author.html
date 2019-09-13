@@ -21,7 +21,7 @@
         <a id="editAuthorLink" href="{{ url_for('edit_author', author_id=author.id) }}">(edit)</a>
     {% endif %}
     <h3>{{ author.country.name or ''}}</h3>
-    <img class="authorPhoto" src="{{ url_for('author_photo', author_id=author.id) }}">
+    <img class="authorPhoto" src="{{ url_for('author_photo', author_id=author.id) }}?{{ author.modify_timestamp }}">
 {% endblock %}
 
 {% block bottomofpage %}

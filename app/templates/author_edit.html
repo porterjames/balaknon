@@ -15,7 +15,7 @@
             {{ form.display_name.label }}<br>
             {{ form.display_name(size=40, maxlength=256) }}
             {% for error in form.display_name.errors %}
-                <span class="problem">error</span>
+                <span class="problem">{{ error }}</span>
             {% endfor %}
         </p>
         <div class="rowOfFields">
@@ -23,21 +23,21 @@
                 {{ form.first_name.label }}<br>
                 {{ form.first_name(size=20, maxlength=50) }}
                 {% for error in form.first_name.errors %}
-                    <span class="problem">error</span>
+                    <span class="problem">{{ error }}</span>
                 {% endfor %}
             </p>
             <p>
                 {{ form.last_name.label }}<br>
                 {{ form.last_name(size=20, maxlength=50) }}
                 {% for error in form.last_name.errors %}
-                    <span class="problem">error</span>
+                    <span class="problem">{{ error }}</span>
                 {% endfor %}
             </p>
             <p>
                 {{ form.middle_name.label }}<br>
                 {{ form.middle_name(size=20, maxlength=50) }}
                 {% for error in form.middle_name.errors %}
-                    <span class="problem">error</span>
+                    <span class="problem">{{ error }}</span>
                 {% endfor %}
             </p>
         </div>
@@ -46,14 +46,14 @@
                 {{ form.birth_year.label }}<br>
                 {{ form.birth_year(size=20) }}
                 {% for error in form.birth_year.errors %}
-                    <span class="problem">error</span>
+                    <span class="problem">{{ error }}</span>
                 {% endfor %}
             </p>
             <p>
                 {{ form.death_year.label }}<br>
                 {{ form.death_year(size=20) }}
                 {% for error in form.death_year.errors %}
-                    <span class="problem">error</span>
+                    <span class="problem">{{ error }}</span>
                 {% endfor %}
             </p>
         </div>
@@ -62,7 +62,7 @@
                 {{ form.nasod.label }}<br>
                 {{ form.nasod(size=30, maxlength=80, autocomplete='nope') }}
                 {% for error in form.nasod.errors %}
-                    <span class="problem">error</span>
+                    <span class="problem">{{ error }}</span>
                 {% endfor %}
             </p>
         </div>
@@ -70,7 +70,7 @@
     {#        {{ form.languages.label }}<br>#}
     {#        {{ form.languages() }}#}
     {#        {% for error in form.languages.errors %}#}
-    {#            <span class="problem">error</span>#}
+    {#            <span class="problem">{{ error }}</span>#}
     {#        {% endfor %}#}
     {#    </p>#}
         <div class="buttonFields">
@@ -90,18 +90,27 @@
 
 {%  block rightPanelContent %}
 
-    <label for="photo">
-        {% if author.has_photo == True %}
-            <img id="authorPhoto" src="{{ url_for('author_photo', author_id=author.id) }}">
-        {% else %}
-            <img id="authorPhoto" src="">
-        {% endif %}
-    </label>
+    <div class="photoContainer">
+        <label for="photo">
+            {% if author.has_photo == True %}
+                <img id="authorPhoto" src="{{ url_for('author_photo', author_id=author.id) }}?{{ author.modify_timestamp }}">
+            {% else %}
+                <img id="authorPhoto" src="">
+            {% endif %}
+            <div class="overlay">
+                <div class="overlayText">upload photo</div>
+            </div>
+        </label>
+    </div>
 
-    {{ form.photo(style='display: none;') }}
-    {% for error in form.photo.errors %}
-        <span class="problem">error</span>
-    {% endfor %}
+    {{ form.photo(style='display: none;', accept='.gif,.jpg,.jpeg,.png') }}
+
+    <div class="errorList">
+        {% for error in form.photo.errors %}
+            <span class="problem">{{ error }}</span>
+        {% endfor %}
+    </div>
+
 {% endblock %}
 
 {% block bottomofpage %}
