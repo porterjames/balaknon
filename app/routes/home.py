@@ -1,4 +1,4 @@
-from flask import render_template, jsonify, redirect, url_for, request, flash
+from flask import render_template, jsonify, redirect, url_for, request
 from app import app, db
 from app.models.post import Post
 from app.models.author import Author
@@ -7,12 +7,12 @@ from app.forms.post import PostForm
 from flask_login import login_required, current_user
 from werkzeug.datastructures import MultiDict
 from datetime import datetime
-import pytz
 
 
 @app.route('/')
 @app.route('/home')
 def home():
+    """home page, which displays the most recent post"""
     the_post = Post.query.order_by(Post.id.desc()).first()
     return render_template('home.html', post=the_post, author=the_post.author, poster=the_post.poster,
                            next_id=None, prev_id=the_post.prev_id())
@@ -20,6 +20,7 @@ def home():
 
 @app.route('/post/<int:post_id>')
 def post(post_id):
+    """display a specific post"""
     the_post = Post.query.get(post_id)
     return render_template('home.html', post=the_post, author=the_post.author, poster=the_post.poster,
                            next_id=the_post.next_id(), prev_id=the_post.prev_id())
@@ -27,6 +28,7 @@ def post(post_id):
 
 @app.route('/post/<int:post_id>/prev')
 def prev_post(post_id):
+    """return the previous post, as JSON (if page is updated via AJAX when <-- is clicked)"""
     the_post = Post.query.filter(Post.id < post_id).order_by(Post.id.desc()).first()
     return jsonify({'post': the_post.as_dict(),
                     'author': the_post.author.as_dict(),
@@ -37,6 +39,7 @@ def prev_post(post_id):
 
 @app.route('/post/<int:post_id>/next')
 def next_post(post_id):
+    """return the next post, as JSON (if page is updated via AJAX when --> is clicked)"""
     the_post = Post.query.filter(Post.id > post_id).order_by(Post.id.asc()).first()
     return jsonify({'post': the_post.as_dict(),
                     'author': the_post.author.as_dict(),
@@ -48,6 +51,7 @@ def next_post(post_id):
 @app.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_post(post_id):
+    """allows user to edit an existing post"""
     the_post = Post.query.get(post_id)
     if request.method == 'GET':
         form = PostForm(formdata=MultiDict({
@@ -71,7 +75,6 @@ def edit_post(post_id):
         the_post.modified_by = current_user.id
         the_post.modify_timestamp = datetime.utcnow()
         db.session.commit()
-        # flash('changes saved to "{}"'.format(form.title.data))
         return redirect(url_for('post', post_id=post_id))
     return render_template('post.html', form=form, post=the_post, author=the_post.author, poster=the_post.poster)
 
@@ -79,6 +82,7 @@ def edit_post(post_id):
 @app.route('/post/new', methods=['GET', 'POST'])
 @login_required
 def new_post():
+    """allows user to create a new post"""
     form = PostForm()
     the_post = Post()
     if form.validate_on_submit():

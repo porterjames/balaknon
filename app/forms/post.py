@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired
 
 
 class PostForm(FlaskForm):
+    """form for inputting/editing post details"""
     title = StringField('title', validators=[DataRequired()])
     date_written = StringField('date written')
     body = HiddenField('body', validators=[DataRequired()])

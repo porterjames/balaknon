@@ -7,6 +7,16 @@ import csv
 
 
 class DataInitializer:
+    """initialize site with sample data from the files in the sample_data directory
+
+    to use, just run this script
+
+    tables initialized:
+        site_user
+        country
+        language
+        author
+        post"""
     user_id = 5
     countries = 0
     languages = 0
@@ -14,6 +24,7 @@ class DataInitializer:
     posts = 0
 
     def site_user(self):
+        """initialize site_user table, creating admin user"""
         u = SiteUser(username='admin', email='admin@test.com')
         u.set_password('admin')
         db.session.add(u)
@@ -22,6 +33,7 @@ class DataInitializer:
         print('Added admin user to the database')
 
     def country(self):
+        """initialize country table"""
         with open('country.csv', encoding="utf-8-sig") as country_file:
             reader = csv.DictReader(country_file, delimiter=',')
             for row in reader:
@@ -33,6 +45,7 @@ class DataInitializer:
             print('Added {} countries to the database'.format(self.countries))
 
     def language(self):
+        """initialize language table"""
         with open('language.csv', encoding='utf-8-sig') as language_file:
             reader = csv.DictReader(language_file, delimiter=',')
             for row in reader:
@@ -44,6 +57,7 @@ class DataInitializer:
             print('Added {} languages to the database'.format(self.languages))
 
     def author(self):
+        """initialize author table"""
         with open('author.csv', encoding='utf-8-sig') as author_file:
             reader = csv.DictReader(author_file, delimiter=',')
             for row in reader:
@@ -64,6 +78,7 @@ class DataInitializer:
             print('Added {} authors to the database'.format(self.authors))
 
     def post(self):
+        """initialize post table"""
         with open('post.csv', encoding='utf-8-sig') as post_file:
             reader = csv.DictReader(post_file, delimiter=',')
             for row in reader:
@@ -81,6 +96,7 @@ class DataInitializer:
             print('Added {} posts to the database'.format(self.posts))
 
     def run(self):
+        """run all initialization scripts in the correct order, accounting for dependencies"""
         self.site_user()
         self.country()
         self.language()

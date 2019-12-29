@@ -92,11 +92,7 @@
 
     <div class="photoContainer">
         <label for="photo">
-            {% if author.has_photo == True %}
-                <img id="authorPhoto" src="{{ url_for('author_photo', author_id=author.id) }}?{{ author.modify_timestamp }}">
-            {% else %}
-                <img id="authorPhoto" src="">
-            {% endif %}
+            <img id="authorPhoto" src="{{ url_for('author_photo', author_id=author.id) }}?{{ author.modify_timestamp }}">
             <div class="overlay">
                 <div class="overlayText">upload photo</div>
             </div>

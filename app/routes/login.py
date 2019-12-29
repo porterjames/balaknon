@@ -8,6 +8,7 @@ from flask_login import current_user, login_user, logout_user
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """login screen"""
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = LoginForm()
@@ -26,5 +27,6 @@ def login():
 
 @app.route('/logout')
 def logout():
+    """log out user and redirect to home page"""
     logout_user()
     return redirect(url_for('home'))
